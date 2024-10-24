@@ -25,9 +25,23 @@
             <manifest>
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
-              <mainClass>${project.groupId}.Main</mainClass>
+              <mainClass>${project.groupId}.TheTower</mainClass>
             </manifest>
           </archive>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>${project.groupId}.TheTower</mainClass>
+            </manifest>
+          </archive>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
         </configuration>
       </plugin>
 
@@ -43,10 +57,29 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>io.replay.thetower.Main</mainClass>
+          <executable>maven</executable>
+          <mainClass>io.replay.thetower.TheTower</mainClass>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>io.github.generaloss</groupId>
+      <artifactId>jpize-core</artifactId>
+      <version>24.10.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.generaloss</groupId>
+      <artifactId>jpize-utils</artifactId>
+      <version>24.10.2</version>
+    </dependency>
+    <dependency>
+      <groupId>io.github.generaloss</groupId>
+      <artifactId>jpize-audio</artifactId>
+      <version>24.10.2</version>
+    </dependency>
+  </dependencies>
 
 </project>

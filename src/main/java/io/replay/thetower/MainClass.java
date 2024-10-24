@@ -1,13 +1,51 @@
 package io.replay.thetower;
 
+import io.replay.thetower.managers.AudioManager;
 import io.replay.thetower.managers.ScreenManager;
+import io.replay.thetower.screens.Game;
+import io.replay.thetower.screens.Loading;
+import io.replay.thetower.screens.Menu;
 import jpize.app.JpizeApplication;
+import jpize.audio.Audio;
 
-public class Main extends JpizeApplication {
+public class MainClass extends JpizeApplication {
 
-    public ScreenManager screenManager = new ScreenManager(this);
+    public ScreenManager screenManager;
+    public AudioManager audioManager;
 
-    public Main(){
-        screenManager.set("LoadingMenu");
+    public MainClass(){
+        Audio.init();
+        Audio.openDevice();
+        audioManager = new AudioManager();
+        screenManager = new ScreenManager()
+                .register(
+                        new Loading(this,"LoadingMenu", "2Menu"),
+                        new Loading(this, "LoadingGame", "Menu2Game"),
+                        new Loading(this, "LoadingGameMenu", "Game2Menu"),
+                        new Menu(this),
+                        new Game(this));
+    }
+    @Override
+    public void init() {
+        screenManager.show("LoadingMenu");
+    }
+    @Override
+    public void update() {
+        screenManager.update();
+    }
+    @Override
+    public void render() {
+        screenManager.render();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        screenManager.resize(width, height);
+    }
+    @Override
+    public void dispose() {
+        Audio.dispose();
+        screenManager.dispose();
+        System.out.println("[DIS] screen manager");
     }
 }

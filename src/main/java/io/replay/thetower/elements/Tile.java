@@ -1,2 +1,34 @@
-package io.replay.thetower.elements;public class Tile {
+package io.replay.thetower.elements;
+
+import jpize.gl.texture.Texture2D;
+import jpize.util.Disposable;
+
+public class Tile implements Disposable {
+
+    private Texture2D texture;
+    private int width;
+    private int height;
+
+    public Tile(String tex_path){
+        this.texture = new Texture2D(tex_path);
+        width = texture.getWidth();
+        height = texture.getHeight();
+    }
+
+    public Texture2D getTexture2D() {
+        return texture;
+    }
+
+    @Override
+    public void dispose() {
+        texture.dispose();
+    }
+
+    public int getTileSizeX() {
+        return width;
+    }
+
+    public int getTileSizeY() {
+        return height;
+    }
 }

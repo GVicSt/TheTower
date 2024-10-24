@@ -1,2 +1,4 @@
-package io.replay.thetower.history;public class Script {
+package io.replay.thetower.history;
+
+public class Script {
 }
