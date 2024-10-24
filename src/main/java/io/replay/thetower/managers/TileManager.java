@@ -4,6 +4,18 @@ import io.replay.thetower.elements.Tile;
 import jpize.util.Disposable;
 
 public class TileManager implements Disposable {
+
+    static class IdTile {
+        int id;
+        Tile tile;
+
+        public IdTile(int id, Tile tile){
+            this.id = id;
+            this.tile = tile;
+        }
+    }
+
+
     private IdTile[] idTile;
 
     public void init(){
@@ -30,13 +42,5 @@ public class TileManager implements Disposable {
             tile.tile.dispose();
         }
     }
-}
 
-class IdTile {
-    int id;
-    Tile tile;
-    public IdTile(int id, Tile tile){
-        this.id = id;
-        this.tile = tile;
-    }
 }

@@ -16,23 +16,26 @@ public class MainClass extends JpizeApplication {
     public MainClass(){
         Audio.init();
         Audio.openDevice();
-        audioManager = new AudioManager();
-        screenManager = new ScreenManager()
-                .register(
-                        new Loading(this,"LoadingMenu", "2Menu"),
-                        new Loading(this, "LoadingGame", "Menu2Game"),
-                        new Loading(this, "LoadingGameMenu", "Game2Menu"),
-                        new Menu(this),
-                        new Game(this));
+        this.audioManager = new AudioManager();
+        this.screenManager = new ScreenManager().register(
+                new Loading(this,"LoadingMenu", "2Menu"),
+                new Loading(this, "LoadingGame", "Menu2Game"),
+                new Loading(this, "LoadingGameMenu", "Game2Menu"),
+                new Menu(this),
+                new Game(this)
+        );
     }
+
     @Override
     public void init() {
         screenManager.show("LoadingMenu");
     }
+
     @Override
     public void update() {
         screenManager.update();
     }
+
     @Override
     public void render() {
         screenManager.render();
@@ -42,10 +45,12 @@ public class MainClass extends JpizeApplication {
     public void resize(int width, int height) {
         screenManager.resize(width, height);
     }
+
     @Override
     public void dispose() {
         Audio.dispose();
         screenManager.dispose();
         System.out.println("[DIS] screen manager");
     }
+
 }

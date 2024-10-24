@@ -9,13 +9,13 @@ import jpize.util.region.TextureRegion;
 public class AtlasAnimation extends Base{
 
     private int w, h, s_i, s_j;
-    private float aspect, time, speed;
-
+    private float time, speed;
     private TextureRegion[] frames_tex;
     private Texture2D atlas;
     private final Animation<TextureRegion> anime;
+    private boolean scalable;
 
-    public AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, int speed) {
+    private AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, float speed, boolean scalable, Animation.Mode mode) {
         super(batch, x, y);
         this.s_i = i;
         this.s_j = j;
@@ -24,61 +24,47 @@ public class AtlasAnimation extends Base{
         this.speed = speed;
 
         this.frames_tex = new TextureRegion[frames];
-        anime = new Animation<>(1f/frames, Animation.Mode.LOOP, frames_tex);
+        this.anime = new Animation<>(1f/frames, mode, frames_tex);
 
-        atlas = new Texture2D(path+"/ani.png");
-        for (int f = 0; f < frames; f++) {
-            frames_tex[f] = new TextureRegion(atlas, f * s_i, 0, s_i, s_j);
-        }
+        this.atlas = new Texture2D(path+"/ani.png");
+
+        this.scalable = scalable;
     }
 
-    public AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, float speed, int num, int offset) {
-        super(batch, x, y);
-        this.s_i = i;
-        this.s_j = j;
-        this.w = w;
-        this.h = h;
-        this.speed = speed;
-
-        this.frames_tex = new TextureRegion[frames];
-        anime = new Animation<>(1f/frames, Animation.Mode.LOOP, frames_tex);
-
-        atlas = new Texture2D(path+"/ani.png");
-        for (int f = 0; f < frames; f++) {
-            frames_tex[f] = new TextureRegion(atlas, f * s_i + offset * s_i, s_j * num, s_i, s_j);
-        }
-    }
-    public AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, float speed, int num, int offset, Animation.Mode mode) {
-        super(batch, x, y);
-        this.s_i = i;
-        this.s_j = j;
-        this.w = w;
-        this.h = h;
-        this.speed = speed;
-
-        this.frames_tex = new TextureRegion[frames];
-        anime = new Animation<>(1f/frames, mode, frames_tex);
-
-        atlas = new Texture2D(path+"/ani.png");
-        for (int f = 0; f < frames; f++) {
-            frames_tex[f] = new TextureRegion(atlas, f * s_i + offset * s_i, s_j * num, s_i, s_j);
-        }
+    public AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, float speed, boolean scalable) {
+        this(batch, x, y, i, j, w, h, path, frames, speed, scalable, Animation.Mode.LOOP);
+        for (int f = 0; f < frames; f++)
+            this.frames_tex[f] = new TextureRegion(atlas, f * s_i, 0, s_i, s_j);
     }
 
-    public void render(){
-        aspect = 1920f/Jpize.getWidth();
-        time += Jpize.getDT()*speed;
-
-        batch.draw(anime.getKeyFrame(time), x*aspect, y*aspect, w*aspect, h*aspect);
+    public AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, float speed, boolean scalable, int num, int offset) {
+        this(batch, x, y, i, j, w, h, path, frames, speed, scalable, Animation.Mode.LOOP);
+        for (int f = 0; f < frames; f++)
+            this.frames_tex[f] = new TextureRegion(atlas, f * s_i + offset * s_i, s_j * num, s_i, s_j);
     }
+
+    public AtlasAnimation(TextureBatch batch, int x, int y, int i, int j, int w, int h, String path, int frames, float speed, boolean scalable, int num, int offset, Animation.Mode mode) {
+        this(batch, x, y, i, j, w, h, path, frames, speed, scalable, mode);
+        for (int f = 0; f < frames; f++)
+            this.frames_tex[f] = new TextureRegion(atlas, f * s_i + offset * s_i, s_j * num, s_i, s_j);
+    }
+
 
     public void setWH(int w, int h){
         this.w = w;
         this.h = h;
     }
 
+    public void render(){
+        time += Jpize.getDT()*speed;
+        float scaleX = scalable ? (Jpize.getWidth()  / 1920f) : 1f;
+        float scaleY = scalable ? (Jpize.getHeight() / 1080f) : 1f;
+        batch.draw(anime.getKeyFrame(time), x, y, w * scaleX, h * scaleY);
+    }
+
     @Override
     public void dispose(){
         atlas.dispose();
     }
+
 }

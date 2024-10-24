@@ -11,17 +11,12 @@ public class Tile implements Disposable {
 
     public Tile(String tex_path){
         this.texture = new Texture2D(tex_path);
-        width = texture.getWidth();
-        height = texture.getHeight();
+        this.width = texture.getWidth();
+        this.height = texture.getHeight();
     }
 
     public Texture2D getTexture2D() {
         return texture;
-    }
-
-    @Override
-    public void dispose() {
-        texture.dispose();
     }
 
     public int getTileSizeX() {
@@ -30,5 +25,10 @@ public class Tile implements Disposable {
 
     public int getTileSizeY() {
         return height;
+    }
+
+    @Override
+    public void dispose() {
+        texture.dispose();
     }
 }

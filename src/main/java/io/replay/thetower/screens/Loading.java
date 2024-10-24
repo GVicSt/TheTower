@@ -19,8 +19,8 @@ public class Loading extends IScreen {
     private float timer = -0.5f;
     private final Fade fadei = new Fade();
     private final Fade fadeo = new Fade();
-    private AtlasAnimation loading_indicator = new AtlasAnimation(batch, 1756, 50, 48, 48, 64, 64, "/animations/loading_indicator", 6, 1);
-    private final Sprite replay_logo = new Sprite(batch, 588, 404, 744, 280, "/sprites/replay_logo.png");
+    private AtlasAnimation loading_indicator = new AtlasAnimation(batch, 1756, 50, 48, 48, 64, 64, "/animations/loading_indicator", 6, 1, true);
+    private final Sprite replay_logo = new Sprite(batch, 588, 404, 744, 280, "/sprites/replay_logo.png", true);
 
     public Loading(MainClass main, String id, String go_to) {
         super(id);
@@ -30,6 +30,7 @@ public class Loading extends IScreen {
             timer = -4f;
         System.out.println("[LOA] Loading screen to " + go_to);
     }
+
     @Override
     public void update(){
         fadei.in(batch, 1f);
@@ -67,6 +68,7 @@ public class Loading extends IScreen {
             }
         }
     }
+
     @Override
     public void render(){
         Gl.clearColorBuffer();
@@ -76,9 +78,12 @@ public class Loading extends IScreen {
         loading_indicator.render();
         batch.render();
     }
+
     @Override
     public void resize(int width, int height) {
+
     }
+
     @Override
     public void dispose(){
         loading_indicator.dispose();

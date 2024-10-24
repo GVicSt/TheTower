@@ -51,7 +51,6 @@ public class ScreenManager implements Disposable {
             current.render();
     }
 
-
     public ScreenManager show(String ID) {
         final IScreen screen = map.get(ID);
         if(screen == null)
@@ -77,12 +76,10 @@ public class ScreenManager implements Disposable {
         }
     }
 
-
     public void resize(int width, int height) {
         if(current != null)
             current.resize(width, height);
     }
-
 
     @Override
     public void dispose() {

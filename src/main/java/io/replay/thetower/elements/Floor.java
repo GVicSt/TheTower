@@ -4,7 +4,8 @@ import io.replay.thetower.managers.TileManager;
 import jpize.gl.texture.Texture2D;
 import jpize.gl.texture.TextureBatch;
 import jpize.util.Disposable;
-import jpize.util.math.vector.Vec2f;
+import jpize.util.camera.Camera2D;
+import jpize.util.math.Maths;
 import jpize.util.math.vector.Vec2i;
 import jpize.util.pixmap.PixmapIO;
 import jpize.util.pixmap.PixmapRGBA;
@@ -19,7 +20,6 @@ public class Floor implements Disposable {
 
     private int floor_id;
 
-
     public void load(){
         System.out.println("[DEB] Level "+floor_id);
         tileManager.init();
@@ -27,25 +27,27 @@ public class Floor implements Disposable {
         level_floor_map = fillLevelTiles("floor");
         level_deco_map = fillLevelTiles("deco");
         level_wall_map = fillLevelTiles("walls");
-
     }
 
-    public void render(TextureBatch batch, Vec2f pos){
-        float player_x = pos.x;
-        float player_y = pos.y;
-        drawLevelTiles(batch, level_floor_map, player_x, player_y);
-        drawLevelTiles(batch, level_deco_map, player_x, player_y);
-        drawLevelTiles(batch, level_wall_map, player_x, player_y);
+    public void render(TextureBatch batch, Camera2D camera){
+        drawLevelTiles(batch, level_floor_map, camera);
+        drawLevelTiles(batch, level_deco_map, camera);
+        drawLevelTiles(batch, level_wall_map, camera);
     }
 
-    private void drawLevelTiles(TextureBatch batch, int[][] level_map, float player_x, float player_y) {
-        for (int x = (int)(player_x/16f)-17; x < (int)(player_x/16f)+17; x++) {
-            for (int y = (int)(player_y/16f)-11; y < (int)(player_y/16f)+11; y++) {
-                if (x>=0 && x<80 && y>=0 && y<80)
-                    if(player_x>x*16-264 && player_x<x*16+264 && player_y>y*16-167 && player_y<y*16+167) {
-                        Tile level_wall_tile = tileManager.getTile(level_map[x][y]);
-                        batch.draw(level_wall_tile.getTexture2D(), x * 16, y * 16, level_wall_tile.getTileSizeX(), level_wall_tile.getTileSizeY());
-                    }
+    private void drawLevelTiles(TextureBatch batch, int[][] level_map, Camera2D camera) {
+        // camera-adaptive tile-draw area
+        final int startX = Maths.floor((camera.position().x - camera.getWidth()  * 0.5f / camera.getScale()) / 16f);
+        final int startY = Maths.floor((camera.position().y - camera.getHeight() * 0.5f / camera.getScale()) / 16f);
+        final int endX    = Maths.ceil((camera.position().x + camera.getWidth()  * 0.5f / camera.getScale()) / 16f);
+        final int endY    = Maths.ceil((camera.position().y + camera.getHeight() * 0.5f / camera.getScale()) / 16f);
+
+        for (int x = startX; x < endX; x++) {
+            for (int y = startY; y < endY; y++) {
+                if (x>=0 && x<80 && y>=0 && y<80) {
+                    Tile level_wall_tile = tileManager.getTile(level_map[x][y]);
+                    batch.draw(level_wall_tile.getTexture2D(), x * 16, y * 16, level_wall_tile.getTileSizeX(), level_wall_tile.getTileSizeY());
+                }
             }
         }
     }
@@ -64,13 +66,14 @@ public class Floor implements Disposable {
         return level_map;
     }
 
+    public void setID(int floor_id) {
+        this.floor_id = floor_id;
+    }
+
     @Override
     public void dispose() {
         tileManager.dispose();
         System.out.println("[DIS] floor");
     }
 
-    public void setID(int floor_id) {
-        this.floor_id = floor_id;
-    }
 }

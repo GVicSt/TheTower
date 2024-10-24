@@ -2,7 +2,6 @@ package io.replay.thetower.scripts;
 
 import jpize.app.Jpize;
 import jpize.glfw.input.Key;
-import jpize.util.camera.OrthographicCameraCentered;
 import jpize.util.math.vector.Vec2f;
 
 public class Controlls {
@@ -18,4 +17,5 @@ public class Controlls {
     public Vec2f[] getMoveBuffer(){
         return move_buffer;
     }
+
 }

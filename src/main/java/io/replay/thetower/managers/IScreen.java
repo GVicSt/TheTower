@@ -12,6 +12,7 @@ public abstract class IScreen implements Disposable {
         this.ID = ID;
     }
 
+
     public String getID() {
         return ID;
     }
@@ -24,8 +25,18 @@ public abstract class IScreen implements Disposable {
         this.initialized = initialized;
     }
 
+    public boolean isLoaded() {
+        return isLoaded;
+    }
+
+    public void setLoaded(boolean loaded) {
+        isLoaded = loaded;
+    }
+
 
     public void init() { }
+
+    public void load() { }
 
     public void update() { }
 
@@ -40,13 +51,4 @@ public abstract class IScreen implements Disposable {
     @Override
     public void dispose() { }
 
-    public void load() { }
-
-    public boolean isLoaded() {
-        return isLoaded;
-    }
-
-    public void setLoaded(boolean loaded) {
-        isLoaded = loaded;
-    }
 }

@@ -8,11 +8,11 @@ import jpize.util.font.Font;
 import java.util.Objects;
 
 public class Fade {
+
     private boolean end;
     private float time = 0;
     private Color black = new Color(0f, 0f, 0f, 1f);
     private Color white = new Color(1f, 1f, 1f, 1f);
-
 
     public boolean in(TextureBatch batch, float speed){
         if(!Objects.equals(batch.color(), white))
@@ -25,6 +25,7 @@ public class Fade {
             }
         return end;
     }
+
     public boolean in(TextureBatch batch, Font font, float speed){
         if(!Objects.equals(batch.color(), white))
             if(!(time/speed>=1)) {
@@ -50,6 +51,7 @@ public class Fade {
             }
         return end;
     }
+
     public boolean out(TextureBatch batch, Font font, float speed){
         if(!Objects.equals(batch.color(), black))
             if(!(time/speed>=1)) {
@@ -68,4 +70,5 @@ public class Fade {
         time = 0;
         end = false;
     }
+
 }

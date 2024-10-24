@@ -24,13 +24,13 @@ public class Player{
 
     public Player(TextureBatch batch){
         this.batch = batch;
-        position = new Vec2f(632,632);
-        animation_body = new PlayerAnimationManager(batch);
-        animation_arm = new PlayerAnimationManager(batch);
-        cam = new OrthographicCameraCentered();
-        cam.scale(4f);
-        animation_body.setCurrent_animation("idle");
-        animation_arm.setCurrent_animation("a_idle");
+        this.position = new Vec2f(632,632);
+        this.animation_body = new PlayerAnimationManager(batch);
+        this.animation_arm = new PlayerAnimationManager(batch);
+        this.cam = new OrthographicCameraCentered();
+        this.cam.scale(4f);
+        this.animation_body.setCurrent_animation("idle");
+        this.animation_arm.setCurrent_animation("a_idle");
     }
 
     public void update(MainClass main) {
@@ -67,9 +67,9 @@ public class Player{
     public Vec2f getPosition(){
         return position;
     }
-    public Vec2f getCamPosition(){
-        return cam.position();
-    }
 
+    public OrthographicCameraCentered getCamera(){
+        return cam;
+    }
 
 }
