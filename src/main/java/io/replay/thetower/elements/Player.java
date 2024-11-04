@@ -21,6 +21,8 @@ public class Player{
     private MainClass main;
     private final GameHUD gameHUD;
 
+    private int hp, maxHp, stamina, maxStamina;
+
     public Player(TextureBatch batch, MainClass main){
         this.batch = batch;
         this.position = new Vec2f(640,640);
@@ -30,12 +32,19 @@ public class Player{
         this.animation = new PlayerAnimation(batch);
         this.animation.init();
         this.main = main;
+
+        this.hp = 5;
+        this.maxHp = 10;
+        this.stamina = 7;
+        this.maxStamina = 10;
+
         float x = position.x-Jpize.getWidth()/8f;
-        float y = position.y+Jpize.getHeight()/8f-48;
-        gameHUD = new GameHUD(
+        float y = position.y+Jpize.getHeight()/8f;
+        gameHUD = new GameHUD(this,
                 new HudSprite(batch, x, y, 64, 64, "/sprites/hud_player_cover.png"),
-                new HudAnimation(batch, x, y, 64, 64, 32, 32, "hud/player_head", 2)
-//                new HudHp()
+                new HudAnimation(batch, x, y, 64, 64, 32, 32, "hud/player_head", 2),
+                new HudBar(batch, x, y, 0),
+                new HudBar(batch, x, y, 1)
         );
     }
 
@@ -64,4 +73,19 @@ public class Player{
         return cam;
     }
 
+    public int getHp() {
+        return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
+    }
+
+    public int getStamina() {
+        return stamina;
+    }
+
+    public int getMaxStamina() {
+        return maxStamina;
+    }
 }

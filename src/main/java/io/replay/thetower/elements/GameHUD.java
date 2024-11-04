@@ -14,8 +14,10 @@ public class GameHUD {
 
     private Font font = FontLoader.loadTrueType("/fonts/square_pixel.ttf", 80, Charset.DEFAULT_ENG_RUS, false);
     private List<HudElement> elements;
+    private Player player;
 
-    public GameHUD(HudElement... iElements){
+    public GameHUD(Player player, HudElement... iElements){
+        this.player = player;
         elements = new ArrayList<>();
         this.elements.addAll(Arrays.asList(iElements));
     }
@@ -23,6 +25,10 @@ public class GameHUD {
     public void update(Vec2f position){
         for (HudElement element : elements) {
             element.setPosition(position);
+            if(element.getClass().equals(HudBar.class)){
+                ((HudBar) element).update(player.getHp(), player.getMaxHp());
+                ((HudBar) element).update(player.getStamina(), player.getMaxStamina());
+            }
         }
     }
 
