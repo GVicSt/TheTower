@@ -1,4 +1,4 @@
-package io.replay.thetower.managers;
+package io.replay.thetower.elements;
 
 import jpize.util.Disposable;
 
@@ -17,11 +17,11 @@ public abstract class IScreen implements Disposable {
         return ID;
     }
 
-    protected boolean isInitialized() {
+    public boolean isInitialized() {
         return initialized;
     }
 
-    protected void setInitialized(boolean initialized) {
+    public void setInitialized(boolean initialized) {
         this.initialized = initialized;
     }
 

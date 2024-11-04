@@ -22,7 +22,6 @@ public class Floor implements Disposable {
 
     public void load(){
         System.out.println("[DEB] Level "+floor_id);
-        tileManager.init();
 
         level_floor_map = fillLevelTiles("floor");
         level_deco_map = fillLevelTiles("deco");
@@ -45,8 +44,8 @@ public class Floor implements Disposable {
         for (int x = startX; x < endX; x++) {
             for (int y = startY; y < endY; y++) {
                 if (x>=0 && x<80 && y>=0 && y<80) {
-                    Tile level_wall_tile = tileManager.getTile(level_map[x][y]);
-                    batch.draw(level_wall_tile.getTexture2D(), x * 16, y * 16, level_wall_tile.getTileSizeX(), level_wall_tile.getTileSizeY());
+                    Tile level_tile = tileManager.getTile(level_map[x][y]);
+                    batch.draw(level_tile.getTexture2D(), x * 16, y * 16, level_tile.getTileSizeX(), level_tile.getTileSizeY());
                 }
             }
         }

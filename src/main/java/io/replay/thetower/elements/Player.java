@@ -1,11 +1,9 @@
 package io.replay.thetower.elements;
 
 import io.replay.thetower.MainClass;
-import io.replay.thetower.managers.PlayerAnimationManager;
 import io.replay.thetower.scripts.Controlls;
 import jpize.app.Jpize;
 import jpize.gl.texture.TextureBatch;
-import jpize.glfw.input.Key;
 import jpize.util.camera.OrthographicCameraCentered;
 import jpize.util.math.vector.Vec2f;
 
@@ -16,52 +14,45 @@ public class Player{
 
     public OrthographicCameraCentered cam;
     private TextureBatch batch;
-    private PlayerAnimationManager animation_body;
-    private PlayerAnimationManager animation_arm;
+    private PlayerAnimation animation;
     private Controlls controlls = new Controlls();
     private Vec2f position;
-    private float timer;
+    private Vec2f camPosition;
+    private MainClass main;
+    private final GameHUD gameHUD;
 
-    public Player(TextureBatch batch){
+    public Player(TextureBatch batch, MainClass main){
         this.batch = batch;
-        this.position = new Vec2f(632,632);
-        this.animation_body = new PlayerAnimationManager(batch);
-        this.animation_arm = new PlayerAnimationManager(batch);
+        this.position = new Vec2f(640,640);
+        this.camPosition = new Vec2f(640,640);
         this.cam = new OrthographicCameraCentered();
         this.cam.scale(4f);
-        this.animation_body.setCurrent_animation("idle");
-        this.animation_arm.setCurrent_animation("a_idle");
+        this.animation = new PlayerAnimation(batch);
+        this.animation.init();
+        this.main = main;
+        float x = position.x-Jpize.getWidth()/8f;
+        float y = position.y+Jpize.getHeight()/8f-48;
+        gameHUD = new GameHUD(
+                new InterfaceElement(batch, x, y, 64, 64, "/sprites/hud_player_cover.png"),
+                new InterfaceElement(batch, x, y, 64, 64, 32, 32, "hud/player_head", 2)
+        );
     }
 
-    public void update(MainClass main) {
-        cam.update();
+    public void update() {
         position.add(controlls.getMove());
-        cam.position().set(max(min(position.x, 63f * 16), 16f * 16), max(min(position.y, 69f * 16), 10f * 16));
+        camPosition.set(max(min(position.x, 63f * 16), 16f * 16), max(min(position.y+16, 69f * 16), 10f * 16));
+        cam.position().set(camPosition);
 
-        boolean idle = controlls.getMove().isZero() && controlls.getMove().isZero();
-        boolean run = Key.LSHIFT.pressed();
-
-        String dir = controlls.getMove().x>0?"x+":controlls.getMove().x<0?"x-":controlls.getMove().y>0?"y+":controlls.getMove().y<0?"y-":"";
-        String sprite_id = idle ? "idle" : run ? ("run_" + dir + "_loop") : ("walk_" + dir + "_loop");
-        animation_body.setCurrent_animation(sprite_id);
-        animation_arm.setCurrent_animation("a_"+ (sprite_id));
-
-        animation_body.getCurrent_animation().x = position.x;
-        animation_arm.getCurrent_animation().x = position.x;
-        animation_body.getCurrent_animation().y = position.y;
-        animation_arm.getCurrent_animation().y = position.y;
-
-        timer += Jpize.getDT();
-        if((controlls.getMove().x != 0 || controlls.getMove().y != 0) && timer > 1f)
-            main.audioManager.getSound(0).play();
-        if(timer>0.1f)
-            timer = 0;
+        controlls.updateGame(main);
+        cam.update();
+        gameHUD.update(camPosition);
+        animation.update(controlls, position);
     }
 
     public void render(){
         batch.setup(cam);
-        animation_body.getCurrent_animation().render();
-        animation_arm.getCurrent_animation().render();
+        gameHUD.render();
+        animation.render();
     }
 
     public Vec2f getPosition(){

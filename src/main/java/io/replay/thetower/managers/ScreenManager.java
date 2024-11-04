@@ -1,5 +1,6 @@
 package io.replay.thetower.managers;
 
+import io.replay.thetower.elements.IScreen;
 import jpize.app.Jpize;
 import jpize.util.Disposable;
 

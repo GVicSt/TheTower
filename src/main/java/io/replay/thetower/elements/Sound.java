@@ -6,13 +6,13 @@ public class Sound {
 
     private AlSound audio;
 
-    public Sound(String sound_name, float gain){
-        this.audio = new AlSound("/sounds/"+sound_name+".wav");
+    public Sound(String sound_name, String extension, float gain){
+        this.audio = new AlSound("/audios/sounds/"+sound_name+"."+extension);
         this.audio.setGain(gain);
     }
 
-    public Sound(String music_name, float gain, float len){
-        this.audio = new AlSound("/sounds/"+music_name+".mp3");
+    public Sound(String music_name, String extension, float gain, float len){
+        this.audio = new AlSound("/audios/music/"+music_name+"."+extension);
         this.audio.setGain(gain);
     }
 

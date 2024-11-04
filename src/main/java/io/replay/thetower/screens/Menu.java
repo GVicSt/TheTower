@@ -4,7 +4,7 @@ import io.replay.thetower.MainClass;
 import io.replay.thetower.elements.Button;
 import io.replay.thetower.elements.Fade;
 import io.replay.thetower.elements.Sprite;
-import io.replay.thetower.managers.IScreen;
+import io.replay.thetower.elements.IScreen;
 import jpize.app.Jpize;
 import jpize.audio.al.fx.AlEffectSlot;
 import jpize.audio.al.fx.effects.AleReverb;
@@ -43,20 +43,23 @@ public class Menu extends IScreen {
     @Override
     public void init() {
         reverb.setDensity(16f);
+        reverb.setDiffusion(0.1f);
+        reverb.setDecayTime(0.3f);
+        reverb.setLateReverbDelay(0.3f);
         effectSlotReverb.setEffect(reverb);
-        main.audioManager.getSound(1).alSound().setLooping(true).play();
+        main.audioManager.getMusic("bg_menu_0").alSound().setLooping(true).play();
     }
 
     @Override
     public void update() {
         fade.in(batch, font, 0.2f);
         if(play.isReleased()){
-            main.audioManager.getSound(1).alSound().stop();
+            main.audioManager.getMusic("bg_menu_0").alSound().stop();
             fade.reset();
             main.screenManager.show("LoadingGame");
         }
         if(options.isReleased())
-            main.audioManager.getSound(1).alSound().setGain(0.5f).setAuxSendFilter(effectSlotReverb, 1, null);
+            main.audioManager.getMusic("bg_menu_0").alSound().setGain(0.5f).setAuxSendFilter(effectSlotReverb, 4, null);
             //main.screenManager.show("Options");
         if(exit.isReleased())
             Jpize.exit();

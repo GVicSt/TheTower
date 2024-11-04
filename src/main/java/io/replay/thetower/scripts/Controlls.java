@@ -1,5 +1,6 @@
 package io.replay.thetower.scripts;
 
+import io.replay.thetower.MainClass;
 import jpize.app.Jpize;
 import jpize.glfw.input.Key;
 import jpize.util.math.vector.Vec2f;
@@ -16,6 +17,11 @@ public class Controlls {
 
     public Vec2f[] getMoveBuffer(){
         return move_buffer;
+    }
+
+    public void updateGame(MainClass main){
+        if (Key.ESCAPE.up())
+            main.screenManager.show("LoadingGameMenu");
     }
 
 }

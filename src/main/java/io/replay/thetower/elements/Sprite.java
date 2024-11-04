@@ -6,16 +6,24 @@ import jpize.gl.texture.TextureBatch;
 
 public class Sprite extends Base{
 
-    private int w, h;
+    public float w, h;
     private Texture2D sprite;
     private boolean scalable;
 
-    public Sprite(TextureBatch batch, float x, float y, int w, int h, String path, boolean scalable) {
+    public Sprite(TextureBatch batch, float x, float y, float w, float h, String path, boolean scalable) {
         super(batch, x, y);
 
         this.w = w;
         this.h = h;
         this.sprite = new Texture2D(path);
+        this.scalable = scalable;
+    }
+    public Sprite(TextureBatch batch, float x, float y, float w, float h, Texture2D tex, boolean scalable) {
+        super(batch, x, y);
+
+        this.w = w;
+        this.h = h;
+        this.sprite = tex;
         this.scalable = scalable;
     }
 

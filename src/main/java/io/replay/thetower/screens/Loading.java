@@ -4,7 +4,7 @@ import io.replay.thetower.MainClass;
 import io.replay.thetower.elements.AtlasAnimation;
 import io.replay.thetower.elements.Fade;
 import io.replay.thetower.elements.Sprite;
-import io.replay.thetower.managers.IScreen;
+import io.replay.thetower.elements.IScreen;
 import jpize.app.Jpize;
 import jpize.gl.Gl;
 import jpize.gl.texture.TextureBatch;
@@ -19,7 +19,7 @@ public class Loading extends IScreen {
     private float timer = -0.5f;
     private final Fade fadei = new Fade();
     private final Fade fadeo = new Fade();
-    private AtlasAnimation loading_indicator = new AtlasAnimation(batch, 1756, 50, 48, 48, 64, 64, "/animations/loading_indicator", 6, 1, true);
+    private AtlasAnimation loading_indicator = new AtlasAnimation(batch, 1756, 50, 48, 48, 64, 64, "loading_buble", 6, 1, true);
     private final Sprite replay_logo = new Sprite(batch, 588, 404, 744, 280, "/sprites/replay_logo.png", true);
 
     public Loading(MainClass main, String id, String go_to) {
@@ -51,7 +51,7 @@ public class Loading extends IScreen {
             if(timer>0&&fadeo.out(batch, 3f)){
 
                 if(go_to.equals("2Menu"))
-                    main.audioManager.getSound(0).alSound().play();
+                    main.audioManager.getSound("menu_loaded_0").alSound().play();
 
                 timer = -1f;
                 fadei.reset();

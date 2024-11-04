@@ -5,6 +5,7 @@ import io.replay.thetower.managers.ScreenManager;
 import io.replay.thetower.screens.Game;
 import io.replay.thetower.screens.Loading;
 import io.replay.thetower.screens.Menu;
+import jpize.app.Jpize;
 import jpize.app.JpizeApplication;
 import jpize.audio.Audio;
 
@@ -29,6 +30,7 @@ public class MainClass extends JpizeApplication {
     @Override
     public void init() {
         screenManager.show("LoadingMenu");
+        Jpize.window().setFullscreen(true);
     }
 
     @Override

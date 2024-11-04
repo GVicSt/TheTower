@@ -1,27 +1,17 @@
 package io.replay.thetower.screens;
 
 import io.replay.thetower.MainClass;
-import io.replay.thetower.elements.Fade;
-import io.replay.thetower.elements.Player;
-import io.replay.thetower.managers.IScreen;
-import io.replay.thetower.managers.LevelManager;
-import jpize.app.Jpize;
+import io.replay.thetower.elements.*;
 import jpize.gl.Gl;
 import jpize.gl.texture.TextureBatch;
-import jpize.glfw.input.Key;
-import jpize.util.font.Charset;
-import jpize.util.font.Font;
-import jpize.util.font.FontLoader;
 
 public class Game extends IScreen {
 
     private MainClass main;
-    private TextureBatch batch = new TextureBatch();
-    private LevelManager levelManager = new LevelManager();
-    private Font font = FontLoader.loadTrueType("/fonts/square_pixel.ttf", 80, Charset.DEFAULT_ENG_RUS, false);
+    private TextureBatch batch = new TextureBatch(65535);
+    private Floor floor = new Floor();
     private Player player;
     private final Fade fade = new Fade();
-    // private Bloom bloom = new Bloom(0.8f, 100f);
 
     public Game(MainClass main) {
         super("Game");
@@ -33,38 +23,29 @@ public class Game extends IScreen {
 
     @Override
     public void init() {
-        main.audioManager.getSound(2).alSound().setLooping(true).play();
+        main.audioManager.getMusic("bg_game_0").alSound().setLooping(true).play();
     }
 
     @Override
     public void load(){
-        player = new Player(batch);
-        levelManager.setLevel(0);
+        player = new Player(batch, main);
+        floor.setID(0);
+        floor.load();
         System.out.println("[DEB] Level loaded");
         setLoaded(true);
     }
 
     @Override
     public void update() {
-        player.update(main);
-        if (Key.ESCAPE.up())
-            main.screenManager.show("LoadingGameMenu");
+        player.update();
         fade.in(batch, 1f);
     }
 
     @Override
     public void render() {
         Gl.clearColorBuffer();
-        levelManager.getFloor().render(batch, player.getCamera());
+        floor.render(batch, player.getCamera());
         player.render();
-
-        // loom.begin();
-        // ex.drawO_;
-        // atch.render();
-        // loom.end();
-
-        font.drawText("FPS: "+Jpize.getFPS(),10,10);
-
         batch.render();
     }
 
