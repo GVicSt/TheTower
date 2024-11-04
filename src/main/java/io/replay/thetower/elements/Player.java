@@ -33,8 +33,9 @@ public class Player{
         float x = position.x-Jpize.getWidth()/8f;
         float y = position.y+Jpize.getHeight()/8f-48;
         gameHUD = new GameHUD(
-                new InterfaceElement(batch, x, y, 64, 64, "/sprites/hud_player_cover.png"),
-                new InterfaceElement(batch, x, y, 64, 64, 32, 32, "hud/player_head", 2)
+                new HudSprite(batch, x, y, 64, 64, "/sprites/hud_player_cover.png"),
+                new HudAnimation(batch, x, y, 64, 64, 32, 32, "hud/player_head", 2)
+//                new HudHp()
         );
     }
 

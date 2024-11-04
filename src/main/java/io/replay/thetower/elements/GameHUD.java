@@ -13,26 +13,22 @@ import java.util.List;
 public class GameHUD {
 
     private Font font = FontLoader.loadTrueType("/fonts/square_pixel.ttf", 80, Charset.DEFAULT_ENG_RUS, false);
-    private List<InterfaceElement> elements;
+    private List<HudElement> elements;
 
-    public GameHUD(InterfaceElement... iElements){
+    public GameHUD(HudElement... iElements){
         elements = new ArrayList<>();
         this.elements.addAll(Arrays.asList(iElements));
     }
 
     public void update(Vec2f position){
-        for (InterfaceElement element : elements) {
+        for (HudElement element : elements) {
             element.setPosition(position);
         }
     }
 
     public void render(){
-        for (InterfaceElement element : elements) {
-            if (element.get_isAnimation()) {
-                element.drawAni();
-            } else {
-                element.draw();
-            }
+        for (HudElement element : elements) {
+            element.draw();
         }
         font.drawText("FPS: "+ Jpize.getFPS(),10,10);
     }
