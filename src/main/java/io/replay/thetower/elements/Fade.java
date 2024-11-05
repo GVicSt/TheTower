@@ -1,9 +1,9 @@
 package io.replay.thetower.elements;
 
 import jpize.app.Jpize;
-import jpize.gl.texture.TextureBatch;
 import jpize.util.color.Color;
 import jpize.util.font.Font;
+import jpize.util.mesh.TextureBatch;
 
 import java.util.Objects;
 
@@ -30,12 +30,12 @@ public class Fade {
         if(!Objects.equals(batch.color(), white))
             if(!(time/speed>=1)) {
                 time += Jpize.getDT();
-                font.options().color.set(0f + (time / speed), 0f + (time / speed), 0f + (time / speed), 1f);
+                font.getRenderOptions().color().set(0f + (time / speed), 0f + (time / speed), 0f + (time / speed), 1f);
                 batch.setColor(0f + (time / speed), 0f + (time / speed), 0f + (time / speed), 1f);
             } else {
                 end = true;
                 batch.setColor(white);
-                font.options().color.set(white);
+                font.getRenderOptions().color().set(white);
             }
         return end;
     }
@@ -56,12 +56,12 @@ public class Fade {
         if(!Objects.equals(batch.color(), black))
             if(!(time/speed>=1)) {
                 time += Jpize.getDT();
-                font.options().color.set(0f + (time / speed), 0f + (time / speed), 0f + (time / speed), 1f);
+                font.getRenderOptions().color().set(0f + (time / speed), 0f + (time / speed), 0f + (time / speed), 1f);
                 batch.setColor(1f - (time / speed), 1f - (time / speed), 1f - (time / speed), 1f);
             } else {
                 end = true;
                 batch.setColor(black);
-                font.options().color.set(white);
+                font.getRenderOptions().color().set(white);
             }
         return end;
     }

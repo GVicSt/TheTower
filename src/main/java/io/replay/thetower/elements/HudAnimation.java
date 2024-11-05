@@ -1,8 +1,8 @@
 package io.replay.thetower.elements;
 
 import jpize.app.Jpize;
-import jpize.gl.texture.TextureBatch;
 import jpize.util.math.vector.Vec2f;
+import jpize.util.mesh.TextureBatch;
 
 public class HudAnimation extends Base implements HudElement {
 

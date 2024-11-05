@@ -2,8 +2,8 @@ package io.replay.thetower.elements;
 
 import jpize.app.Jpize;
 import jpize.gl.texture.Texture2D;
-import jpize.gl.texture.TextureBatch;
 import jpize.util.Animation;
+import jpize.util.mesh.TextureBatch;
 import jpize.util.region.TextureRegion;
 
 public class AtlasAnimation extends Base{

@@ -5,7 +5,7 @@ import io.replay.thetower.elements.Fade;
 import io.replay.thetower.elements.Sprite;
 import jpize.app.JpizeApplication;
 import jpize.gl.Gl;
-import jpize.gl.texture.TextureBatch;
+import jpize.util.mesh.TextureBatch;
 
 public class VNovel extends JpizeApplication {
 

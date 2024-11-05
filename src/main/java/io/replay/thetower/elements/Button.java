@@ -2,10 +2,10 @@ package io.replay.thetower.elements;
 
 import jpize.app.Jpize;
 import jpize.gl.texture.Texture2D;
-import jpize.gl.texture.TextureBatch;
 import jpize.glfw.input.MouseBtn;
 import jpize.util.color.Color;
 import jpize.util.font.Font;
+import jpize.util.mesh.TextureBatch;
 
 public class Button extends Base{
 
@@ -30,16 +30,16 @@ public class Button extends Base{
     public void render(){
         float scaleX = Jpize.getWidth() / 1920f;
         float scaleY = Jpize.getHeight() / 1080f;
-        font.options().scale = scaleY;
-        Color old_color = font.options().color.copy();
+        font.getRenderOptions().scale().set(scaleY);
+        Color old_color = font.getRenderOptions().color().copy();
         is_at_button = Jpize.getX() >= x * scaleX && Jpize.getX() <= x * scaleX + w * scaleX && Jpize.getY() >= y * scaleY && Jpize.getY() <= y * scaleY + h * scaleY;
         is_pressed = ( Jpize.input().isButtonPressed(MouseBtn.LEFT) || Jpize.input().isButtonPressed(MouseBtn.RIGHT) ) && is_at_button;
         is_released = ( Jpize.input().isButtonUp(MouseBtn.LEFT) || Jpize.input().isButtonUp(MouseBtn.RIGHT) ) && is_at_button;
         if(!only_text)batch.draw(is_pressed?sprite_pressed:sprite, x * scaleX, y * scaleY, w*scaleX, h*scaleY);
-        if(is_pressed)font.options().color.set(0.75f,0.75f,0.75f,1f);
+        if(is_pressed)font.getRenderOptions().color().set(0.75f,0.75f,0.75f,1f);
         batch.render();
         font.drawText(batch,text,x * scaleX+(w*scaleX/2f)-font.getTextWidth(text)/2f,y * scaleY+(h*scaleY/2f)-font.getTextHeight(text)/2f);
-        font.options().color.set(old_color);
+        font.getRenderOptions().color().set(old_color);
     }
 
     public boolean isPressed(){

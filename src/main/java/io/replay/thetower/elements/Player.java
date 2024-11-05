@@ -3,9 +3,9 @@ package io.replay.thetower.elements;
 import io.replay.thetower.MainClass;
 import io.replay.thetower.scripts.Controlls;
 import jpize.app.Jpize;
-import jpize.gl.texture.TextureBatch;
 import jpize.util.camera.OrthographicCameraCentered;
 import jpize.util.math.vector.Vec2f;
+import jpize.util.mesh.TextureBatch;
 
 import static java.lang.Float.max;
 import static java.lang.Float.min;

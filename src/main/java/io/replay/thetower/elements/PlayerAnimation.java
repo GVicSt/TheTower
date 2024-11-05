@@ -1,10 +1,9 @@
 package io.replay.thetower.elements;
 
-import io.replay.thetower.elements.AtlasAnimation;
 import io.replay.thetower.scripts.Controlls;
-import jpize.gl.texture.TextureBatch;
 import jpize.glfw.input.Key;
 import jpize.util.math.vector.Vec2f;
+import jpize.util.mesh.TextureBatch;
 
 public class PlayerAnimation {
 

@@ -1,6 +1,6 @@
 package io.replay.thetower.elements;
 
-import jpize.gl.texture.TextureBatch;
+import jpize.util.mesh.TextureBatch;
 
 public class Base {
 

@@ -3,12 +3,12 @@ package io.replay.thetower.screens;
 import io.replay.thetower.MainClass;
 import io.replay.thetower.elements.*;
 import jpize.gl.Gl;
-import jpize.gl.texture.TextureBatch;
+import jpize.util.mesh.TextureBatch;
 
 public class Game extends IScreen {
 
     private MainClass main;
-    private TextureBatch batch = new TextureBatch(65535);
+    private TextureBatch batch = new TextureBatch();
     private Floor floor = new Floor();
     private Player player;
     private final Fade fade = new Fade();

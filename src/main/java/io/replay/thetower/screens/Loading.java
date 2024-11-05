@@ -7,7 +7,7 @@ import io.replay.thetower.elements.Sprite;
 import io.replay.thetower.elements.IScreen;
 import jpize.app.Jpize;
 import jpize.gl.Gl;
-import jpize.gl.texture.TextureBatch;
+import jpize.util.mesh.TextureBatch;
 
 public class Loading extends IScreen {
 

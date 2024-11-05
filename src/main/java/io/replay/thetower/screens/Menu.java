@@ -9,10 +9,10 @@ import jpize.app.Jpize;
 import jpize.audio.al.fx.AlEffectSlot;
 import jpize.audio.al.fx.effects.AleReverb;
 import jpize.gl.Gl;
-import jpize.gl.texture.TextureBatch;
 import jpize.util.font.Charset;
 import jpize.util.font.FontLoader;
 import jpize.util.font.Font;
+import jpize.util.mesh.TextureBatch;
 
 public class Menu extends IScreen {
 
@@ -37,7 +37,7 @@ public class Menu extends IScreen {
 
         this.main = main;
         this.batch.setColor(0f,0f,0f,1f);
-        this.font.options().color.set(0f,0f,0f,1f);
+        this.font.getRenderOptions().color().set(0f,0f,0f,1f);
     }
 
     @Override

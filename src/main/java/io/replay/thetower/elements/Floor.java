@@ -2,11 +2,11 @@ package io.replay.thetower.elements;
 
 import io.replay.thetower.managers.TileManager;
 import jpize.gl.texture.Texture2D;
-import jpize.gl.texture.TextureBatch;
 import jpize.util.Disposable;
 import jpize.util.camera.Camera2D;
 import jpize.util.math.Maths;
 import jpize.util.math.vector.Vec2i;
+import jpize.util.mesh.TextureBatch;
 import jpize.util.pixmap.PixmapIO;
 import jpize.util.pixmap.PixmapRGBA;
 
